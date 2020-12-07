@@ -1,6 +1,4 @@
-# 418 I am a teapot
-
-This is front-end of our food delivery project in ReactJS and TypeJS.
+This is front-end of our final project in ReactJS.
 
 ## get start
 To start with, install all the dependency by command
@@ -26,15 +24,3 @@ To auto-fix all the formatting problem, run
 ```bash
 prettier --write src/**/*.{tsx,ts,css}
 ```
-
-## Actions
-
-This project comes with two actions, the first is `CI`, which try to build and test if the existing code is in form of *prettier* format. if the `CI` check is passed and PR get approved, it would be automatically deployed on a heroku server, and the website URL is https://team418-i-am-a-teapot.herokuapp.com/
-
-## Prototype
-
-We build the Prototype based on the UI of Ubereat with some anime elements of Fate series.
-
-https://www.figma.com/file/aANSnp6Z9mdtEZAvFyI9Yd/SaberEats?node-id=0%3A1
-
-
