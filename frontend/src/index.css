@@ -1,0 +1,10 @@
+:root {
+  --saberBlue: #1c396b;
+}
+body {
+  margin: 0;
+
+  font-family: Roboto, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
