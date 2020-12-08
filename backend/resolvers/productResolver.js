@@ -1,18 +1,19 @@
-import { Cat } from "./Cat"
-
 const { Product } = require("../models/product")
 
-export const resolvers = {
+const productResolver = {
     Query: {
-        products: Product.find()
+        products: () => Product.find()
     }, 
     Mutation: {
-        createCat: async (_, args) => {
-            const newProduct = new Product({ name });
-            await kitty.save();
-            console.log(kitty)
+        createCat: async (_, {brand} ) => {
+            const newProduct = new Product({ brand });
+            await newProduct.save();
+            console.log(newProduct)
 
-            return kitty;
+            return newProduct;
         }
     }
 }
+
+module.exports = productResolver;
+

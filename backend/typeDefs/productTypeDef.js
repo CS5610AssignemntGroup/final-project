@@ -1,13 +1,9 @@
 const { ApolloServer, gql } = require("apollo-server-express");
 
-export const typeDefs = gql`
+module.exports = productTypeDef => gql`
     type Query {
         products: [Product!]!
     }
-
-
-
-
 
     type Event {
         _id: ID!
@@ -16,7 +12,6 @@ export const typeDefs = gql`
         price: Float!
         date: String!
     }
-
 
     type Product {
         _id: ID!
