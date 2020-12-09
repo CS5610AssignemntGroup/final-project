@@ -15,7 +15,7 @@ module.exports = productTypeDef => gql`
 
     type Product {
         _id: ID!
-        user: [User!]!
+        // user: [User!]!
         brand: String! 
         image: String! 
         category: String! 
@@ -24,12 +24,12 @@ module.exports = productTypeDef => gql`
         stockCount: Float!
         rating: Float!
         rateNum: Float!
-        reviews: [Review!]!
+        // reviews: [Review!]!
     }
 
     type Mutation {
         addProduct( 
-            user: [User!]!
+            // user: [User!]!
             brand: String! 
             image: String! 
             category: String! 
@@ -38,7 +38,7 @@ module.exports = productTypeDef => gql`
             stockCount: Float!
             rating: Float!
             rateNum: Float!
-            reviews: [Review!]!
+            // reviews: [Review!]!
         ): Product!
     }
 `;
