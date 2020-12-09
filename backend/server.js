@@ -15,6 +15,7 @@ app.use(
         schema: buildSchema(`
             type Product {
                 _id: ID!
+                name: String!
                 image: String!
                 brand: String!
                 category: String!
@@ -26,6 +27,7 @@ app.use(
             }
 
             input ProductInput {
+                name: String!
                 image: String!
                 brand: String!
                 category: String!
@@ -64,6 +66,7 @@ app.use(
             addProduct: args => {
                 const product = new Product({
                     // user: args.productInput.user,
+                    name: args.productInput.name,
                     image: args.productInput.image,
                     brand: args.productInput.brand,
                     category: args.productInput.category,
@@ -105,23 +108,3 @@ mongoose
     .catch(err => {
         console.log(err);
     });
-
-/**
- * 
- mutation {
-  createEvent(eventInput: {title: "test1", description: "desc1", price: 23.99, date: "2020-12-08T07:14:35.727Z"}) {
-    title
-    description
-  }
-}
-
-query {
-  events {
-    title
-    description
-  }
-}
-
- * 
- * 
- */

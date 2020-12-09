@@ -9,6 +9,10 @@ const productSchema = new Schema({
     //     required: true,
     //     ref: "User"
     // },
+    name: {
+        type: String,
+        require: true, 
+    },
     brand: {
         type: String,
         required: true,
