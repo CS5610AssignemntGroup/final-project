@@ -8,22 +8,24 @@ interface Product {
 }
 
 interface OwnProps {
-    product: Product;
+    image: string;
+    name: string;
+    price: number;
 }
 
 type Props = OwnProps;
 
-const ProductCard: FunctionComponent<Props> = ({ product }) => {
+const ProductCard: FunctionComponent<Props> = ({ image, name, price }) => {
     return (
         <Card className="my-3 p-3 rounded">
-            <Card.Img src={product.image} variant="top" />
+            <Card.Img src={image} variant="top" />
 
             <Card.Body>
                 <Card.Title as="div">
-                    <strong>{product.name}</strong>
+                    <strong>{name}</strong>
                 </Card.Title>
 
-                <Card.Text as="h3">${product.price}</Card.Text>
+                <Card.Text as="h3">${price}</Card.Text>
             </Card.Body>
         </Card>
     );
