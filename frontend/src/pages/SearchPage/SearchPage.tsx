@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent } from 'react';
 
 interface OwnProps {}
 
 type Props = OwnProps;
 
-const SearchPage: FunctionComponent<Props> = (props) => {
-  return <div>SearchPage</div>;
+const SearchPage: FunctionComponent<Props> = props => {
+    return <div>SearchPage</div>;
 };
 
 export { SearchPage };
