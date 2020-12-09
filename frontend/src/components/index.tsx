@@ -1,5 +1,5 @@
 export { CartMenu } from './CartMenu/CartMenu';
 export { Menu } from './Menu/Menu';
-export { ItemCard } from './ItemCard/ItemCard';
+export { ProductCard } from './ProductCard/ProductCard';
 export { Header } from './Header/Header';
 export { Footer } from './Footer/Footer';

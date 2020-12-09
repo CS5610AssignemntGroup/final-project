@@ -4,11 +4,18 @@ import './index.css';
 import App from './App';
 import 'typeface-roboto';
 import * as serviceWorker from './serviceWorker';
+import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+    uri: 'https://48p1r2roz4.sse.codesandbox.io',
+    cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
-    <React.StrictMode>
+    <ApolloProvider client={client}>
         <App />
-    </React.StrictMode>,
+    </ApolloProvider>,
     document.getElementById('root')
 );
 
