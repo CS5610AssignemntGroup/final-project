@@ -15,30 +15,47 @@ module.exports = productTypeDef => gql`
 
     type Product {
         _id: ID!
+<<<<<<< HEAD
         user: [User!]!
         brand: String!
         image: String!
         category: String!
         description: String!
+=======
+        // user: [User!]!
+        brand: String! 
+        image: String! 
+        category: String! 
+        description: String! 
+>>>>>>> manzhang
         price: Float!
         stockCount: Float!
         rating: Float!
         rateNum: Float!
-        reviews: [Review!]!
+        // reviews: [Review!]!
     }
 
     type Mutation {
+<<<<<<< HEAD
         addProduct(
             user: [User!]!
             brand: String!
             image: String!
             category: String!
             description: String!
+=======
+        addProduct( 
+            // user: [User!]!
+            brand: String! 
+            image: String! 
+            category: String! 
+            description: String! 
+>>>>>>> manzhang
             price: Float!
             stockCount: Float!
             rating: Float!
             rateNum: Float!
-            reviews: [Review!]!
+            // reviews: [Review!]!
         ): Product!
     }
 `;
