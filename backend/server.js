@@ -5,6 +5,7 @@ const { buildSchema } = require('graphql');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 const cors = require('cors');
+const keys = require('./config/keys');
 
 const app = express();
 
@@ -106,15 +107,22 @@ app.use(
     })
 );
 
-mongoose
-    .connect(
-        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.0md4f.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
-    )
-    .then(() => {
-        app.listen(process.env.PORT || 4000, () =>
-            console.log(`server start at port: ${process.env.PORT}`)
+mongoose.connect(keys.MONGO_URI).catch(err => {
+    console.log(err);
+});
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('../frontend/build'));
+
+    //if not found in client/build
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, '../frontend', 'build', 'index.html')
         );
-    })
-    .catch(err => {
-        console.log(err);
     });
+}
+
+app.listen(process.env.PORT || 4000, () =>
+    console.log(`server start at port: ${process.env.PORT}`)
+);

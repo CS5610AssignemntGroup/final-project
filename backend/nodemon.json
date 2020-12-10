@@ -1,9 +1,0 @@
-{
-    "env": {
-        "PORT": 4000,
-
-        "MONGO_USER": "man_mdb",
-        "MONGO_PASSWORD": "m123456",
-        "MONGO_DB": "bookstore"
-    }
-}
