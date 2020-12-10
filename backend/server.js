@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql').graphqlHTTP;
 const { buildSchema } = require('graphql');
@@ -111,15 +112,17 @@ mongoose.connect(keys.MONGO_URI).catch(err => {
     console.log(err);
 });
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('../frontend/build'));
+const dirname = path.resolve();
 
-    //if not found in client/build
-    const path = require('path');
-    app.get('*', (req, res) => {
-        res.sendFile(
-            path.resolve(__dirname, '../frontend', 'build', 'index.html')
-        );
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(dirname, '/frontend/build')));
+
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(dirname, 'frontend', 'build', 'index.html'))
+    );
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running....');
     });
 }
 
