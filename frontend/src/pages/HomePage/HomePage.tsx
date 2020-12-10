@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { ProductCard } from '../../components';
-import { Product } from '../../components/ProductCard/ProductCard';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
+// import { Product } from '../../components/ProductCard/ProductCard';
 
 interface OwnProps {}
 
 type Props = OwnProps;
 
-const PRODUCTS = gql`
-    query getAllProducts {
-        products {
+const GET_PRODUCTS = gql`
+    query products {
+        getAllProducts {
             name
             image
             price
@@ -18,7 +18,8 @@ const PRODUCTS = gql`
 `;
 
 const HomePage: FunctionComponent<Props> = props => {
-    const { loading, error, data } = useQuery(PRODUCTS);
+    const { loading, error, data } = useQuery(GET_PRODUCTS);
+    console.log(data);
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
@@ -26,13 +27,20 @@ const HomePage: FunctionComponent<Props> = props => {
         <div>
             <h1>Latest Products</h1>
             <div className="product-container">
-                {data.products.map((product: Product) => (
-                    <ProductCard
-                        name={product.name}
-                        image={product.image}
-                        price={product.price}
-                    />
-                ))}
+                {data.getAllProducts.map(
+                    (product: {
+                        name: string;
+                        image: string;
+                        price: number;
+                    }) => (
+                        <ProductCard
+                            name={product.name}
+                            image={product.image}
+                            price={product.price}
+                            size={300}
+                        />
+                    )
+                )}
             </div>
         </div>
     );

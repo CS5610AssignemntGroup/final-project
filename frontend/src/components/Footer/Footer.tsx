@@ -13,7 +13,7 @@ const Footer: FunctionComponent<Props> = props => {
                     <Col
                         className="text-center py-3"
                         style={{ fontSize: '10px' }}>
-                        Copyright &copy; ABookstore
+                        Copyright &copy; AceBook
                     </Col>
                 </Row>
             </Container>
