@@ -1,32 +1,33 @@
 {
-  "name": "final-project",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "book store",
-  "main": "server.js",
+  "description": "book store backend",
+  "main": "backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix backend && npm run build --prefix backend"
-
+    "start": "nodemon backend/server.js",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CS5610AssignemntGroup/final-project.git"
-  },
-  "author": "pjz mz xwd",
+  "author": "man",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CS5610AssignemntGroup/final-project/issues"
-  },
-  "homepage": "https://github.com/CS5610AssignemntGroup/final-project#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "apollo-server": "^2.19.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.4.0",
+    "graphql-iso-date": "^3.6.1",
+    "mongoose": "^5.11.5"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
+    "cors": "^2.8.5",
+    "nodemon": "^2.0.6",
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.2.0",
-    "nodemon": "^2.0.6",
     "prettier": "^2.2.1"
   }
 }

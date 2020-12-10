@@ -8,9 +8,11 @@ import { ApolloProvider } from '@apollo/client';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-    uri: 'https://48p1r2roz4.sse.codesandbox.io',
+    uri: process.env.REACT_APP_APOLLO_URI,
     cache: new InMemoryCache(),
 });
+
+console.log('uri', process.env.REACT_APP_APOLLO_URI);
 
 ReactDOM.render(
     <ApolloProvider client={client}>
