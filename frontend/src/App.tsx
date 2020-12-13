@@ -1,21 +1,40 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Header, Footer } from './components';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    RouteComponentProps,
+} from 'react-router-dom';
 import { HomePage } from './pages';
+import { ProductPage } from './pages';
+import { NotFoundPage } from './pages';
 
 import './App.css';
 import './bootstrap.min.css';
 
+interface MatchParams {
+    id: string;
+}
+
+interface MatchProps extends RouteComponentProps<MatchParams> {}
 function App() {
     return (
         <Router>
             <Header />
             <main className="py-3">
                 <Container>
+                    <Route path="/notfound/" component={NotFoundPage} />
+                    <Route
+                        path="/product/:id"
+                        render={({ match }: MatchProps) => (
+                            <ProductPage id={match.params.id} />
+                        )}
+                    />
                     <Route path="/" component={HomePage} exact />
                 </Container>
             </main>
+            <Footer />
         </Router>
     );
 }

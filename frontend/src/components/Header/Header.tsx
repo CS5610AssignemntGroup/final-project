@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
 interface OwnProps {}
@@ -10,14 +11,21 @@ const Header: FunctionComponent<Props> = props => {
         <header>
             <Navbar bg="dark" variant="dark" style={{ height: '7vh' }}>
                 <Container>
-                    <Navbar.Brand href="/">AceBook</Navbar.Brand>
+                    <LinkContainer to="/">
+                        <Navbar.Brand href="/">AceBook</Navbar.Brand>
+                    </LinkContainer>
+
                     <Nav className="ml-auto">
-                        <Nav.Link>
-                            <i className="fas fa-shopping-cart" /> Cart
-                        </Nav.Link>
-                        <Nav.Link>
-                            <i className="fas fa-user" /> Sign In
-                        </Nav.Link>
+                        <LinkContainer to="/cart">
+                            <Nav.Link>
+                                <i className="fas fa-shopping-cart" /> Cart
+                            </Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/login">
+                            <Nav.Link>
+                                <i className="fas fa-user" /> Sign In
+                            </Nav.Link>
+                        </LinkContainer>
                     </Nav>
                 </Container>
             </Navbar>
