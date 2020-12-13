@@ -8,15 +8,9 @@ type Props = OwnProps;
 const Footer: FunctionComponent<Props> = props => {
     return (
         <footer>
-            <Container>
-                <Row>
-                    <Col
-                        className="text-center py-3"
-                        style={{ fontSize: '10px' }}>
-                        Copyright &copy; AceBook
-                    </Col>
-                </Row>
-            </Container>
+            <div className="text-center py-3" style={{ fontSize: '10px' }}>
+                Copyright &copy; AceBook
+            </div>
         </footer>
     );
 };

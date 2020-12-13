@@ -12,8 +12,6 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 });
 
-console.log('uri', process.env.REACT_APP_APOLLO_URI);
-
 ReactDOM.render(
     <ApolloProvider client={client}>
         <App />
