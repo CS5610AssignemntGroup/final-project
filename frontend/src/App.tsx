@@ -1,42 +1,42 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { Foot, NavBar } from "./components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Header, Footer } from './components';
 import {
-  HomePage,
-  NotFoundPage,
-  OrderConfirmPage,
-  OrderHistoryPage,
-  SearchPage,
-} from "./pages";
+    BrowserRouter as Router,
+    Route,
+    RouteComponentProps,
+} from 'react-router-dom';
+import { HomePage } from './pages';
+import { ProductPage } from './pages';
+import { NotFoundPage } from './pages';
 
+import './App.css';
+import './bootstrap.min.css';
+
+interface MatchParams {
+    id: string;
+}
+
+interface MatchProps extends RouteComponentProps<MatchParams> {}
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <NavBar />
-        <div className="container">
-          <Switch>
-            <Route path={"/"} exact>
-              <HomePage />
-            </Route>
-            <Route path={"/search"} exact>
-              <SearchPage />
-            </Route>
-            <Route path={"/orderHistory"} exact>
-              <OrderHistoryPage />
-            </Route>
-            <Route path={"/orderConfirm"} exact>
-              <OrderConfirmPage />
-            </Route>
-            <Route component={NotFoundPage} />
-          </Switch>
-        </div>
-        <Foot />
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <Header />
+            <main className="py-3">
+                <Container>
+                    <Route path="/notfound/" component={NotFoundPage} />
+                    <Route
+                        path="/product/:id"
+                        render={({ match }: MatchProps) => (
+                            <ProductPage id={match.params.id} />
+                        )}
+                    />
+                    <Route path="/" component={HomePage} exact />
+                </Container>
+            </main>
+            <Footer />
+        </Router>
+    );
 }
 
 export default App;

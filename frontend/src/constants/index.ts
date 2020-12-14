@@ -1,1 +1,1 @@
-export const CONST = "CONST";
+export const CONST = 'CONST';
