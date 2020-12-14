@@ -24,8 +24,25 @@ app.use(
     '/graphql',
     graphqlHTTP({
         schema: buildSchema(`
+            type User {
+                _id:ID!
+                name:
+                email:
+                password:
+                isAdmin:
+            }
+
+            type Review {
+                _id: ID!
+                name: String!
+                rating: Float!
+                comment: String
+                user: [User]
+            }
+
             type Product {
                 _id: ID!
+                users: [User]
                 name: String!
                 image: String!
                 brand: String!
@@ -35,6 +52,7 @@ app.use(
                 reviewCount: Int
                 price: Float!
                 stockCount: Int!
+                reviews: [Review]
             }
 
             input ProductInput {
