@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bookRoutes from './routes/bookRoutes.js';
-// import userRoutes from './routes/userRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 
 app.use('/api/books', bookRoutes);
-// app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes);
 
 mongoose
     .connect(process.env.MONGO_URI, {
