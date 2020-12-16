@@ -9,7 +9,7 @@ import {
 import { HomePage } from './pages';
 import { BookPage } from './pages';
 import { NotFoundPage } from './pages';
-
+import { LoginPage } from './pages';
 import './App.css';
 import './bootstrap.min.css';
 
@@ -26,6 +26,7 @@ function App() {
             <Header />
             <main className="py-3">
                 <Container>
+                    <Route path="/login" component={LoginPage} />
                     <Route path="/notfound/" component={NotFoundPage} />
                     <Route
                         path="/book/:id"

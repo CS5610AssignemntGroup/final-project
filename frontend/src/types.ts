@@ -17,6 +17,14 @@ export interface Book {
     numReviews: number;
 }
 
+export interface User {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
+}
+
 export interface RootState {
     bookList: {
         books: Book[];
@@ -27,5 +35,20 @@ export interface RootState {
         book: Book;
         loading: string;
         error: string;
+    };
+    userLogin: {
+        loading: string;
+        error: string;
+        userInfo: User;
+    };
+    userRegister: {
+        loading: string;
+        error: string;
+        userInfo: User;
+    };
+    userDetails: {
+        loading: string;
+        error: string;
+        user: User;
     };
 }
