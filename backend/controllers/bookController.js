@@ -1,9 +1,11 @@
 import asyncHandler from 'express-async-handler';
 import Book from '../models/book.js';
 
-// @desc    Fetch all books
-// @route   GET /api/books
-// @access  Public
+/*
+@desc    Fetch all books
+@route   GET /api/books
+@access  Public
+ */
 const getBooks = asyncHandler(async (req, res) => {
     const keyword = req.query.keyword
         ? {
@@ -19,9 +21,11 @@ const getBooks = asyncHandler(async (req, res) => {
     res.json({ books });
 });
 
-// @desc    Fetch single book
-// @route   GET /api/books/:id
-// @access  Public
+/*
+@desc    Fetch single book
+@route   GET /api/books/:id
+@access  Public
+ */
 const getBookById = asyncHandler(async (req, res) => {
     const book = await Book.findById(req.params.id);
 
