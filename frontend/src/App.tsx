@@ -15,9 +15,11 @@ import './bootstrap.min.css';
 
 interface MatchParams {
     id: string;
+    keyword: string;
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
+
 function App() {
     return (
         <Router>
@@ -30,6 +32,13 @@ function App() {
                         render={({ match }: MatchProps) => (
                             <ProductPage id={match.params.id} />
                         )}
+                    />
+                    <Route
+                        path="/search/:keyword"
+                        render={({ match }: MatchProps) => (
+                            <HomePage keyword={match.params.keyword} />
+                        )}
+                        exact
                     />
                     <Route path="/" component={HomePage} exact />
                 </Container>
