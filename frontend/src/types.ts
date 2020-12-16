@@ -6,7 +6,8 @@ export interface Review {
 }
 
 export interface Book {
-    id: string;
+    _id: string;
+    isbn: string;
     user: string;
     title: string;
     image: string;
@@ -17,5 +18,9 @@ export interface Book {
 }
 
 export interface RootState {
-    bookList: Book[];
+    bookList: {
+        books: Book[];
+        loading: string;
+        error: string;
+    };
 }

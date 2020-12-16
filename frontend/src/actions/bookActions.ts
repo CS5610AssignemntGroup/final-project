@@ -7,7 +7,7 @@ export const listBooks = (keyword = '') => async (
         dispatch({ type: 'BOOK_LIST_REQUEST' });
 
         const { data } = await axios.get(`/api/books?keyword=${keyword}`);
-
+        console.log('data in action', data);
         dispatch({
             type: 'BOOK_LIST_SUCCESS',
             payload: data,
