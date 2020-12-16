@@ -1,33 +1,8 @@
 const mongoose = require('mongoose');
-console.log("insert product model...")
+
 const Schema = mongoose.Schema;
 
-const reviewSchema = new Schema(
-    {
-        name: {
-            type: String,
-            required: true,
-        },
-        rating: {
-            type: Number,
-            required: true,
-        },
-        comment: {
-            type: String,
-            required: true,
-        },
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'User',
-        },
-    },
-    {
-        timestamps: true,
-    }
-);
-
-const productSchema = new Schema({
+const userSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -73,8 +48,12 @@ const productSchema = new Schema({
         required: true,
         default: 0,
     },
-    reviews: [reviewSchema],
+    reviews: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Review',
+    },
 });
 
-const Product = mongoose.model('Product', productSchema);
-export default Product;
+const User = mongoose.model('User', userSchema);
+export default User; 
