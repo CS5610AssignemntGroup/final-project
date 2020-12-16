@@ -11,6 +11,7 @@ import { BookPage } from './pages';
 import { NotFoundPage } from './pages';
 import { LoginPage } from './pages';
 import { RegisterPage } from './pages';
+import { ProfilePage } from './pages';
 import './App.css';
 import './bootstrap.min.css';
 
@@ -29,6 +30,7 @@ function App() {
                 <Container>
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
+                    <Route path="/profile" component={ProfilePage} />
                     <Route path="/notfound/" component={NotFoundPage} />
                     <Route
                         path="/book/:id"

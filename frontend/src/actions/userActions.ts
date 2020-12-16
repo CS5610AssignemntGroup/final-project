@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { User } from '../types';
 
 export const login = (email: string, password: string) => async (
     dispatch: (arg0: { type: any; payload?: any }) => void
@@ -124,6 +125,53 @@ export const getUserDetails = (id: string) => async (
         }
         dispatch({
             type: 'USER_DETAILS_FAIL',
+            payload: message,
+        });
+    }
+};
+
+export const updateUserProfile = (user: any) => async (
+    dispatch: (arg0: { payload?: any; type: string }) => void,
+    getState: () => { userLogin: { userInfo: any } }
+) => {
+    try {
+        dispatch({
+            type: 'USER_UPDATE_PROFILE_REQUEST',
+        });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const { data } = await axios.put(`/api/users/profile`, user, config);
+
+        dispatch({
+            type: 'USER_UPDATE_PROFILE_SUCCESS',
+            payload: data,
+        });
+        dispatch({
+            type: 'USER_LOGIN_SUCCESS',
+            payload: data,
+        });
+        localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        if (message === 'Not authorized, token failed') {
+            // @ts-ignore
+            dispatch(logout());
+        }
+        dispatch({
+            type: 'USER_UPDATE_PROFILE_FAIL',
             payload: message,
         });
     }

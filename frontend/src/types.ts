@@ -51,4 +51,10 @@ export interface RootState {
         error: string;
         user: User;
     };
+    userUpdateProfile: {
+        loading: string;
+        error: string;
+        success: string;
+        userInfo: User;
+    };
 }
