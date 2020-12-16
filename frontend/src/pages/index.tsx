@@ -1,4 +1,4 @@
 export { HomePage } from './HomePage/HomePage';
-export { ProductPage } from './ProductPage/ProductPage';
+export { BookPage } from './BookPage/BookPage';
 export { SearchPage } from './SearchPage/SearchPage';
 export { NotFoundPage } from './NotFoundPage/NotFoundPage';

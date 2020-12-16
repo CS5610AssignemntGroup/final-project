@@ -7,8 +7,8 @@ const books = [
         description:
             'JavaScript lies at the heart of almost every modern web application, from social apps to the newest browser-based games. Though simple for beginners to pick up and play with, JavaScript is a flexible, complex language that you can use to build full-scale applications.',
 
-        rating: 0,
-        numReviews: 0,
+        rating: 5,
+        numReviews: 1,
     },
     {
         title: 'Learning JavaScript Design Patterns',

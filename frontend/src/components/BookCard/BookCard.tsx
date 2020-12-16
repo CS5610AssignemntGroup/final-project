@@ -14,7 +14,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const ProductCard: FunctionComponent<Props> = ({
+const BookCard: FunctionComponent<Props> = ({
     id,
     image,
     title,
@@ -24,11 +24,11 @@ const ProductCard: FunctionComponent<Props> = ({
 }) => {
     return (
         <Card className="my-3 p-3 rounded" style={{ width: `${size}px` }}>
-            <Link to={`/product/${id}`}>
+            <Link to={`/book/${id}`}>
                 <Card.Img src={image} variant="top" />
             </Link>
             <Card.Body>
-                <Link to={`/product/${id}`}>
+                <Link to={`/book/${id}`}>
                     <Card.Title as="div">
                         <strong>{title}</strong>
                     </Card.Title>
@@ -42,4 +42,4 @@ const ProductCard: FunctionComponent<Props> = ({
     );
 };
 
-export { ProductCard };
+export { BookCard };

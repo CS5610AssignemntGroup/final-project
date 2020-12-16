@@ -7,7 +7,7 @@ import {
     RouteComponentProps,
 } from 'react-router-dom';
 import { HomePage } from './pages';
-import { ProductPage } from './pages';
+import { BookPage } from './pages';
 import { NotFoundPage } from './pages';
 
 import './App.css';
@@ -28,9 +28,9 @@ function App() {
                 <Container>
                     <Route path="/notfound/" component={NotFoundPage} />
                     <Route
-                        path="/product/:id"
+                        path="/book/:id"
                         render={({ match }: MatchProps) => (
-                            <ProductPage id={match.params.id} />
+                            <BookPage id={match.params.id} />
                         )}
                     />
                     <Route
@@ -40,10 +40,11 @@ function App() {
                         )}
                         exact
                     />
+
                     <Route path="/" component={HomePage} exact />
                 </Container>
             </main>
-            <Footer />
+            {/*<Footer />*/}
         </Router>
     );
 }

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ProductCard } from '../../components/ProductCard/ProductCard';
+import { BookCard } from '../../components';
 import { RootState, Book } from '../../types';
 import { listBooks } from '../../actions/bookActions';
 import style from './style.module.css';
@@ -40,7 +40,8 @@ const HomePage: FunctionComponent<Props> = ({ keyword }) => {
             ) : (
                 <div className={style.bookContainer}>
                     {books.map((book: Book) => (
-                        <ProductCard
+                        <BookCard
+                            key={book._id}
                             id={book._id}
                             title={book.title}
                             image={book.image}

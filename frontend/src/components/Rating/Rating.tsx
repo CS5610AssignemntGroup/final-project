@@ -21,7 +21,11 @@ const Rating: FunctionComponent<Props> = ({ value, number }) => {
                 <i
                     style={{ color: 'orange' }}
                     className={
-                        starFrac >= 0.5 ? 'fas fa-star-half-alt' : 'far fa-star'
+                        starFrac === 0
+                            ? ''
+                            : starFrac >= 0.5
+                            ? 'fas fa-star-half-alt'
+                            : 'far fa-star'
                     }
                 />
             </div>

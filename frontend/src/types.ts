@@ -23,4 +23,9 @@ export interface RootState {
         loading: string;
         error: string;
     };
+    bookDetails: {
+        book: Book;
+        loading: string;
+        error: string;
+    };
 }
