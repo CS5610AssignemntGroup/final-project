@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { reviewSchema } from './review.js';
 
 const Schema = mongoose.Schema;
 
@@ -8,13 +9,16 @@ const bookSchema = new Schema({
         required: true,
         ref: 'User',
     },
-    name: {
+    title: {
         type: String,
         require: true,
     },
-    image: {
+    isbn: {
         type: String,
         required: true,
+    },
+    image: {
+        type: String,
     },
     description: {
         type: String,
@@ -25,11 +29,7 @@ const bookSchema = new Schema({
     numReviews: {
         type: Number,
     },
-    reviews: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Review',
-    },
+    reviews: [reviewSchema],
 });
 
 const Book = mongoose.model('Book', bookSchema);

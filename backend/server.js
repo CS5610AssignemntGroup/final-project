@@ -1,10 +1,11 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const Product = require('./models/book');
-const cors = require('cors');
-const keys = require('./config/keys');
+import express from 'express';
+import dotenv from 'dotenv';
+import path from 'path';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
+
+dotenv.config();
 
 const app = express();
 
@@ -19,9 +20,15 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.json());
 
-mongoose.connect(keys.MONGO_URI).catch(err => {
-    console.log(err);
-});
+mongoose
+    .connect(process.env.MONGO_URI, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 const dirname = path.resolve();
 
@@ -37,6 +44,5 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(process.env.PORT || 4000, () =>
-    console.log(`server start at port: ${process.env.PORT}`)
-);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`server start at port: ${PORT}`));
