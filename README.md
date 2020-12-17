@@ -21,8 +21,8 @@ This is a bookstore website. The basic idea of building this website is to help 
 
 </br>
 <img src="https://github.com/CS5610AssignemntGroup/final-project/blob/master/guest.gif" width=1000><br>
-
 </br>
+
 > As a registered user:
 >> - inherit guest user
 >> - update personal profile
