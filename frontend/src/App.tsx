@@ -6,12 +6,17 @@ import {
     Route,
     RouteComponentProps,
 } from 'react-router-dom';
-import { HomePage } from './pages';
-import { BookPage } from './pages';
-import { NotFoundPage } from './pages';
-import { LoginPage } from './pages';
-import { RegisterPage } from './pages';
-import { ProfilePage } from './pages';
+import {
+    HomePage,
+    UserEditPage,
+    UserListPage,
+    BookPage,
+    NotFoundPage,
+    LoginPage,
+    RegisterPage,
+    ProfilePage,
+} from './pages';
+
 import './App.css';
 import './bootstrap.min.css';
 
@@ -23,6 +28,9 @@ interface MatchParams {
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
 function App() {
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <Router>
             <Header />
@@ -31,6 +39,17 @@ function App() {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/profile" component={ProfilePage} />
+                    <Route path="/admin/userlist" component={UserListPage} />
+                    <Route
+                        path="/admin/user/:id/edit"
+                        component={UserEditPage}
+                    />
+                    <Route
+                        path="/admin/user/:id/edit"
+                        render={({ match }: MatchProps) => (
+                            <UserEditPage id={match.params.id} />
+                        )}
+                    />
                     <Route path="/notfound/" component={NotFoundPage} />
                     <Route
                         path="/book/:id"

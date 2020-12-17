@@ -1,3 +1,9 @@
+import {
+    userDeleteReducer,
+    userListReducer,
+    userUpdateReducer,
+} from './reducers/userReducers';
+
 export interface Review {
     name: string;
     rating: number;
@@ -56,5 +62,21 @@ export interface RootState {
         error: string;
         success: string;
         userInfo: User;
+    };
+    userList: {
+        loading: string;
+        error: string;
+        users: User[];
+    };
+    userDelete: {
+        loading: string;
+        error: string;
+        success: string;
+    };
+    userUpdate: {
+        loading: string;
+        error: string;
+        success: string;
+        user: User;
     };
 }
