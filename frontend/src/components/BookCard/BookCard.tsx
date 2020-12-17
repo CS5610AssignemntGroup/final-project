@@ -23,7 +23,9 @@ const BookCard: FunctionComponent<Props> = ({
     numReviews,
 }) => {
     return (
-        <Card className="my-3 p-3 rounded" style={{ width: `${size}px` }}>
+        <Card
+            className="my-3 p-3 rounded"
+            style={{ width: `${size}px`, margin: '20px' }}>
             <Link to={`/book/${id}`}>
                 <Card.Img src={image} variant="top" />
             </Link>

@@ -19,6 +19,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 const UserEditPage: FunctionComponent<Props> = ({ id }) => {
+    console.log('id pre', id);
     const history = createBrowserHistory();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -36,18 +37,17 @@ const UserEditPage: FunctionComponent<Props> = ({ id }) => {
         success: successUpdate,
     } = userUpdate;
 
-    //TODO undefined user
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: 'USER_UPDATE_RESET' });
             history.push('/admin/userlist');
         } else {
-            if (!user.name || user._id !== id) {
+            // if (!user.name || user._id !== id) {
+            console.log('user', user);
+            console.log(Object.keys(user).length === 0);
+            if (id && Object.keys(user).length === 0) {
+                console.log('id', id);
                 dispatch(getUserDetails(id));
-            } else {
-                setName(user.name);
-                setEmail(user.email);
-                setIsAdmin(user.isAdmin);
             }
         }
     }, [dispatch, history, id, user, successUpdate]);

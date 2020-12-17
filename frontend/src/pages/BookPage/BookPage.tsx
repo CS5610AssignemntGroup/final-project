@@ -17,7 +17,7 @@ import {
     getOtherInfoFromGoogleBook,
 } from '../../actions/bookActions';
 import { Rating } from '../../components';
-import axios from 'axios';
+import style from './style.module.css';
 
 interface OwnProps {
     id: string;
@@ -137,24 +137,66 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                             <Card>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item>
-                                        <p>other info from google books</p>
+                                        <p>Other info from Google Books</p>
                                         {!info ? (
                                             ''
                                         ) : (
-                                            <p>
-                                                Average Rating:{' '}
-                                                {info.averageRating
-                                                    ? info.averageRating
-                                                    : 'no rating'}
-                                            </p>
+                                            <div>
+                                                <p>
+                                                    Average Rating:{' '}
+                                                    {info.averageRating
+                                                        ? info.averageRating
+                                                        : 'no rating'}
+                                                </p>
+                                                <p>
+                                                    Authors:{' '}
+                                                    {info.authors
+                                                        ? info.authors
+                                                        : 'no authors info'}
+                                                </p>
+                                                <p>
+                                                    Published Date:{' '}
+                                                    {info.publishedDate
+                                                        ? info.publishedDate
+                                                        : 'no date info'}
+                                                </p>
+                                                <p>
+                                                    Pages:{' '}
+                                                    {info.pageCount
+                                                        ? info.pageCount
+                                                        : 'no page info'}
+                                                </p>
+                                                <a
+                                                    className={style.mylink}
+                                                    href={
+                                                        info.previewLink
+                                                            ? info.previewLink
+                                                            : '/'
+                                                    }
+                                                    target="_blank">
+                                                    Preview Link
+                                                </a>
+                                                <br />
+                                                <a
+                                                    className={style.mylink}
+                                                    href={
+                                                        info.infoLink
+                                                            ? info.infoLink
+                                                            : '/'
+                                                    }
+                                                    target="_blank">
+                                                    Info Link
+                                                </a>
+                                            </div>
                                         )}
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Card>
                         </Col>
                     </Row>
+                    <div className={style.space}></div>
                     <Row>
-                        <Col md={6}>
+                        <Col md={12}>
                             <h2>Reviews</h2>
                             {book.reviews.length === 0 && <p>No Reviews</p>}
                             <ListGroup variant="flush">

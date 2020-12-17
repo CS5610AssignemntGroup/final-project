@@ -29,7 +29,9 @@ const Rating: FunctionComponent<Props> = ({ value, number }) => {
                     }
                 />
             </div>
-            <div>{number ? `${value} from ${number} reviews` : ''}</div>
+            <div>
+                {number ? `${value} from ${number} reviews` : 'no rating yet'}
+            </div>
         </div>
     );
 };

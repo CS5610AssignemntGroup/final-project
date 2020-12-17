@@ -16,7 +16,7 @@ type Props = OwnProps;
 
 const AdminBookEditPage: FunctionComponent<Props> = ({ id }) => {
     const history = createBrowserHistory();
-
+    //TODO initial state
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('');
     const [isbn, setIsbn] = useState('');
@@ -42,12 +42,13 @@ const AdminBookEditPage: FunctionComponent<Props> = ({ id }) => {
         } else {
             if (!book.title || book._id !== id) {
                 dispatch(listBookDetails(id));
-            } else {
-                setTitle(book.title);
-                setImage(book.image);
-                setIsbn(book.isbn);
-                setDescription(book.description);
             }
+            // else {
+            //     setTitle(book.title);
+            //     setImage(book.image);
+            //     setIsbn(book.isbn);
+            //     setDescription(book.description);
+            // }
         }
     }, [dispatch, history, id, book, successUpdate]);
 

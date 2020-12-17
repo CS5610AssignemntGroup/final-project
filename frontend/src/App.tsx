@@ -44,10 +44,6 @@ function App() {
                     <Route path="/admin/userlist" component={UserListPage} />
                     <Route
                         path="/admin/user/:id/edit"
-                        component={UserEditPage}
-                    />
-                    <Route
-                        path="/admin/user/:id/edit"
                         render={({ match }: MatchProps) => (
                             <UserEditPage id={match.params.id} />
                         )}

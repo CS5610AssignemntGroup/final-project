@@ -21,6 +21,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 const ProfilePage: FunctionComponent<Props> = ({ location, history }) => {
+    //TODO style, link to profile from comment
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
