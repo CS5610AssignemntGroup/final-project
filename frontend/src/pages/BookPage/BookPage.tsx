@@ -55,7 +55,6 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
         info,
     } = bookOtherInfo;
 
-    //TODO update 3rd party api
     useEffect(() => {
         if (successBookReview) {
             setRating('0');
@@ -137,31 +136,31 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                             <Card>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item>
-                                        <p>Other info from Google Books</p>
+                                        <p>Other Info from Google Books</p>
                                         {!info ? (
                                             ''
                                         ) : (
                                             <div>
+                                                <b>Average Rating:</b>
                                                 <p>
-                                                    Average Rating:{' '}
                                                     {info.averageRating
                                                         ? info.averageRating
                                                         : 'no rating'}
                                                 </p>
+                                                <b>Authors:</b>
                                                 <p>
-                                                    Authors:{' '}
                                                     {info.authors
                                                         ? info.authors
                                                         : 'no authors info'}
                                                 </p>
+                                                <b>Published Date:</b>
                                                 <p>
-                                                    Published Date:{' '}
                                                     {info.publishedDate
                                                         ? info.publishedDate
                                                         : 'no date info'}
                                                 </p>
+                                                <b>Pages:</b>
                                                 <p>
-                                                    Pages:{' '}
                                                     {info.pageCount
                                                         ? info.pageCount
                                                         : 'no page info'}
@@ -272,9 +271,9 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                                         </Form>
                                     ) : (
                                         <p>
-                                            Please{' '}
+                                            Please
                                             <Link to="/login">sign in</Link> to
-                                            write a review{' '}
+                                            write a review
                                         </p>
                                     )}
                                 </ListGroup.Item>

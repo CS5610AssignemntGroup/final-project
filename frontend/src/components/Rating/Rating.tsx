@@ -9,6 +9,9 @@ interface OwnProps {
 type Props = OwnProps;
 
 const Rating: FunctionComponent<Props> = ({ value, number }) => {
+    if (value == 0 && number == 0) {
+        return <div>No Rating Yet</div>;
+    }
     const starNum: number = Math.floor(value) || 0;
     const starFrac: number = value - starNum;
 
@@ -29,9 +32,7 @@ const Rating: FunctionComponent<Props> = ({ value, number }) => {
                     }
                 />
             </div>
-            <div>
-                {number ? `${value} from ${number} reviews` : 'no rating yet'}
-            </div>
+            <div>{number ? `${value} from ${number} reviews` : ''}</div>
         </div>
     );
 };

@@ -223,7 +223,6 @@ export const createBookReview = (bookId: string, review: any) => async (
         };
 
         await axios.post(`/api/books/${bookId}/reviews`, review, config);
-
         dispatch({
             type: 'BOOK_CREATE_REVIEW_SUCCESS',
         });
