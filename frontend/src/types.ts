@@ -1,8 +1,10 @@
 export interface Review {
+    _id: string;
     name: string;
     rating: number;
     comment: string;
     user: string;
+    createdAt: string;
 }
 
 export interface Book {
@@ -12,7 +14,7 @@ export interface Book {
     title: string;
     image: string;
     description: string;
-    reviews: Review;
+    reviews: Review[];
     rating: number;
     numReviews: number;
 }
@@ -28,50 +30,65 @@ export interface User {
 export interface RootState {
     bookList: {
         books: Book[];
-        loading: string;
+        loading: boolean;
         error: string;
     };
     bookDetails: {
         book: Book;
-        loading: string;
+        loading: boolean;
         error: string;
     };
-    bookDelete: { loading: string; error: string; success: string };
-    bookCreate: { loading: string; error: string; success: string; book: Book };
-    bookUpdate: { loading: string; error: string; success: string; book: Book };
+    bookDelete: { loading: boolean; error: string; success: string };
+    bookCreate: {
+        loading: boolean;
+        error: string;
+        success: string;
+        book: Book;
+    };
+    bookUpdate: {
+        loading: boolean;
+        error: string;
+        success: string;
+        book: Book;
+    };
+    bookReviewCreate: {
+        loading: boolean;
+        error: string;
+        success: string;
+    };
     userLogin: {
-        loading: string;
+        loading: boolean;
         error: string;
         userInfo: User;
     };
     userRegister: {
-        loading: string;
+        loading: boolean;
         error: string;
         userInfo: User;
     };
     userDetails: {
-        loading: string;
+        loading: boolean;
         error: string;
         user: User;
     };
     userUpdateProfile: {
-        loading: string;
+        loading: boolean;
         error: string;
         success: string;
         userInfo: User;
     };
     userList: {
-        loading: string;
+        loading: boolean;
         error: string;
         users: User[];
     };
     userDelete: {
-        loading: string;
+        loading: boolean;
         error: string;
         success: string;
     };
     userUpdate: {
-        loading: string;
+        loading: boolean;
         error: string;
         success: string;
         user: User;

@@ -3,7 +3,7 @@ import style from './style.module.css';
 
 interface OwnProps {
     value: number;
-    number: number;
+    number?: number;
 }
 
 type Props = OwnProps;
@@ -29,7 +29,7 @@ const Rating: FunctionComponent<Props> = ({ value, number }) => {
                     }
                 />
             </div>
-            <div>{`${value} from ${number} reviews`}</div>
+            <div>{number ? `${value} from ${number} reviews` : ''}</div>
         </div>
     );
 };

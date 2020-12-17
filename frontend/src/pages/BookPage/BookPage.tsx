@@ -11,7 +11,7 @@ import {
     Form,
 } from 'react-bootstrap';
 import { RootState, Book } from '../../types';
-import { listBookDetails } from '../../actions/bookActions';
+import { createBookReview, listBookDetails } from '../../actions/bookActions';
 import { Rating } from '../../components';
 
 interface OwnProps {
@@ -21,8 +21,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BookPage: FunctionComponent<Props> = ({ id }) => {
-    const [qty, setQty] = useState(1);
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
 
     const dispatch = useDispatch();
@@ -30,17 +29,43 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
     const bookDetails = useSelector((state: RootState) => state.bookDetails);
     const { loading, error, book } = bookDetails;
 
+    const userLogin = useSelector((state: RootState) => state.userLogin);
+    const { userInfo } = userLogin;
+
+    const bookReviewCreate = useSelector(
+        (state: RootState) => state.bookReviewCreate
+    );
+    const {
+        success: successBookReview,
+        loading: loadingBookReview,
+        error: errorBookReview,
+    } = bookReviewCreate;
+
     useEffect(() => {
+        if (successBookReview) {
+            setRating('0');
+            setComment('');
+        }
         if (!book._id || book._id !== id) {
             dispatch(listBookDetails(id));
+            dispatch({ type: 'BOOK_CREATE_REVIEW_RESET' });
         }
-    }, []);
-    console.log('loading', book);
-    console.log('book', book);
+    }, [dispatch, successBookReview]);
+
+    const submitHandler = (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        dispatch(
+            createBookReview(id, {
+                rating,
+                comment,
+            })
+        );
+    };
     if (!book) {
         return <div>Book Not found</div>;
     }
 
+    // @ts-ignore
     return (
         <div>
             <Link className="btn btn-light my-3" to="/">
@@ -62,7 +87,6 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                                     <h3>{book.title}</h3>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    {console.log('rating', book.rating)}
                                     <Rating
                                         value={book.rating || 0}
                                         number={book.numReviews}
@@ -81,6 +105,92 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Card>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={6}>
+                            <h2>Reviews</h2>
+                            {book.reviews.length === 0 && <p>No Reviews</p>}
+                            <ListGroup variant="flush">
+                                {book.reviews.map(review => (
+                                    <ListGroup.Item key={review._id}>
+                                        <strong>{review.name}</strong>
+                                        <Rating value={review.rating} />
+                                        <p>
+                                            {review.createdAt.substring(0, 10)}
+                                        </p>
+                                        <p>{review.comment}</p>
+                                    </ListGroup.Item>
+                                ))}
+                                <ListGroup.Item>
+                                    <h2>Write a Customer Review</h2>
+                                    {successBookReview && (
+                                        <p>Review submitted successfully</p>
+                                    )}
+                                    {loadingBookReview && <p>Loading...</p>}
+                                    {errorBookReview && (
+                                        <p>{errorBookReview}</p>
+                                    )}
+                                    {userInfo ? (
+                                        <Form onSubmit={submitHandler}>
+                                            <Form.Group controlId="rating">
+                                                <Form.Label>Rating</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    value={rating}
+                                                    onChange={e =>
+                                                        setRating(
+                                                            e.target.value
+                                                        )
+                                                    }>
+                                                    <option value="">
+                                                        Select...
+                                                    </option>
+                                                    <option value="1">
+                                                        1 - Poor
+                                                    </option>
+                                                    <option value="2">
+                                                        2 - Fair
+                                                    </option>
+                                                    <option value="3">
+                                                        3 - Good
+                                                    </option>
+                                                    <option value="4">
+                                                        4 - Very Good
+                                                    </option>
+                                                    <option value="5">
+                                                        5 - Excellent
+                                                    </option>
+                                                </Form.Control>
+                                            </Form.Group>
+                                            <Form.Group controlId="comment">
+                                                <Form.Label>Comment</Form.Label>
+                                                <Form.Control
+                                                    as="textarea"
+                                                    // row='3'
+                                                    value={comment}
+                                                    onChange={e =>
+                                                        setComment(
+                                                            e.target.value
+                                                        )
+                                                    }></Form.Control>
+                                            </Form.Group>
+                                            <Button
+                                                disabled={loadingBookReview}
+                                                type="submit"
+                                                variant="primary">
+                                                Submit
+                                            </Button>
+                                        </Form>
+                                    ) : (
+                                        <p>
+                                            Please{' '}
+                                            <Link to="/login">sign in</Link> to
+                                            write a review{' '}
+                                        </p>
+                                    )}
+                                </ListGroup.Item>
+                            </ListGroup>
                         </Col>
                     </Row>
                 </div>
