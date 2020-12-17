@@ -17,20 +17,25 @@ This is a bookstore website. The basic idea of building this website is to help 
 >> - search for a specific book
 >> - read detailed book information
 >> - read book reviews from others
+>> - view reviewer's profile
 
+</br>
 <img src="https://github.com/CS5610AssignemntGroup/final-project/blob/master/guest.gif" width=1000><br>
 
+</br>
 > As a registered user:
 >> - inherit guest user
->> - update personal profile. 
+>> - update personal profile
 >> - Write review
 
+</br>
 <img src="https://github.com/CS5610AssignemntGroup/final-project/blob/master/reg_user.gif" width=1000><br>
+</br>
 
 > As a admin: 
 >> - inherit registered user
->> - manage all registered users, including update user's profile, delete user, and assign users admin authority.
->> - mange all books, including adding book, update book's information, and delete book.
+>> - manage all registered users, including update user's profile, delete user, and assign users admin authority
+>> - mange all books, including adding book, update book's information, and delete book
 
 <img src="https://github.com/CS5610AssignemntGroup/final-project/blob/master/admin_user.gif" width=1000><br>
 
