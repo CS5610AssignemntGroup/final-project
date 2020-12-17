@@ -2,20 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './store';
 import 'typeface-roboto';
 import * as serviceWorker from './serviceWorker';
-import { ApolloProvider } from '@apollo/client';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-
-const client = new ApolloClient({
-    uri: process.env.REACT_APP_APOLLO_URI,
-    cache: new InMemoryCache(),
-});
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
+    <Provider store={store}>
         <App />
-    </ApolloProvider>,
+    </Provider>,
     document.getElementById('root')
 );
 

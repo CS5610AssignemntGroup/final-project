@@ -6,35 +6,87 @@ import {
     Route,
     RouteComponentProps,
 } from 'react-router-dom';
-import { HomePage } from './pages';
-import { ProductPage } from './pages';
-import { NotFoundPage } from './pages';
+import {
+    HomePage,
+    UserEditPage,
+    UserListPage,
+    BookPage,
+    NotFoundPage,
+    LoginPage,
+    RegisterPage,
+    ProfilePage,
+    PublicProfilePage,
+    AdminBookListPage,
+    AdminBookEditPage,
+} from './pages';
 
 import './App.css';
 import './bootstrap.min.css';
 
 interface MatchParams {
     id: string;
+    keyword: string;
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
+
 function App() {
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <Router>
             <Header />
             <main className="py-3">
                 <Container>
-                    <Route path="/notfound/" component={NotFoundPage} />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/register" component={RegisterPage} />
+                    <Route path="/profile" component={ProfilePage} />
                     <Route
-                        path="/product/:id"
+                        path="/publicprofile/:id"
                         render={({ match }: MatchProps) => (
-                            <ProductPage id={match.params.id} />
+                            <PublicProfilePage id={match.params.id} />
                         )}
                     />
+                    <Route path="/admin/userlist" component={UserListPage} />
+                    <Route
+                        path="/admin/user/:id/edit"
+                        render={({ match }: MatchProps) => (
+                            <UserEditPage id={match.params.id} />
+                        )}
+                    />
+                    <Route
+                        path="/admin/booklist"
+                        component={AdminBookListPage}
+                        exact
+                    />
+
+                    <Route
+                        path="/admin/book/:id/edit"
+                        render={({ match }: MatchProps) => (
+                            <AdminBookEditPage id={match.params.id} />
+                        )}
+                    />
+
+                    <Route path="/notfound/" component={NotFoundPage} />
+                    <Route
+                        path="/book/:id"
+                        render={({ match }: MatchProps) => (
+                            <BookPage id={match.params.id} />
+                        )}
+                    />
+                    <Route
+                        path="/search/:keyword"
+                        render={({ match }: MatchProps) => (
+                            <HomePage keyword={match.params.keyword} />
+                        )}
+                        exact
+                    />
+
                     <Route path="/" component={HomePage} exact />
                 </Container>
             </main>
-            <Footer />
+            {/*<Footer />*/}
         </Router>
     );
 }

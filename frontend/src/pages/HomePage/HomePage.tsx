@@ -1,54 +1,57 @@
-import React, { FunctionComponent } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { ProductCard } from '../../components/ProductCard/ProductCard';
+import React, { FunctionComponent, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { BookCard } from '../../components';
+import { RootState, Book } from '../../types';
+import { listBooks } from '../../actions/bookActions';
 import style from './style.module.css';
-// import { Product } from '../../components/ProductCard/ProductCard';
 
-interface OwnProps {}
+interface OwnProps {
+    keyword: string;
+}
 
 type Props = OwnProps;
 
-const GET_PRODUCTS = gql`
-    query products {
-        getAllProducts {
-            name
-            image
-            price
-            _id
-        }
-    }
-`;
+const HomePage: FunctionComponent<Props> = ({ keyword }) => {
+    const dispatch = useDispatch();
 
-const HomePage: FunctionComponent<Props> = props => {
-    const { loading, error, data } = useQuery(GET_PRODUCTS);
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    const bookList = useSelector((state: RootState) => state.bookList);
+
+    const { loading, error, books } = bookList;
+
+    useEffect(() => {
+        dispatch(listBooks(keyword));
+    }, [dispatch, keyword]);
 
     return (
         <div>
-            <h1>Latest Products</h1>
-            <div className={style.productContainer}>
-                {data.getAllProducts.map(
-                    (product: {
-                        _id: string;
-                        name: string;
-                        image: string;
-                        price: number;
-                        rating: number;
-                        rateNum: number;
-                    }) => (
-                        <ProductCard
-                            id={product._id}
-                            name={product.name}
-                            image={product.image}
-                            price={product.price}
-                            rating={4.1}
-                            rateNum={10}
+            {!keyword ? (
+                <div />
+            ) : (
+                <Link to="/" className="btn btn-light">
+                    Go Back
+                </Link>
+            )}
+            <h1>Latest Books</h1>
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
+                <div className={style.bookContainer}>
+                    {books.map((book: Book) => (
+                        <BookCard
+                            key={book._id}
+                            id={book._id}
+                            title={book.title}
+                            image={book.image}
+                            rating={book.rating}
+                            numReviews={book.numReviews}
                             size={300}
                         />
-                    )
-                )}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

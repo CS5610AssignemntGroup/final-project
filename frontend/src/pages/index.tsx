@@ -1,6 +1,11 @@
 export { HomePage } from './HomePage/HomePage';
-export { ProductPage } from './ProductPage/ProductPage';
-export { OrderConfirmPage } from './OrderConfirmPage/OrderConfirmPage';
-export { OrderHistoryPage } from './OrderHistoryPage/OrderHistoryPage';
-export { SearchPage } from './SearchPage/SearchPage';
+export { BookPage } from './BookPage/BookPage';
+export { LoginPage } from './LoginPage/LoginPage';
+export { RegisterPage } from './RegisterPage/RegisterPage';
+export { ProfilePage } from './ProfilePage/ProfilePage';
+export { PublicProfilePage } from './PublicProfilePage/PublicProfilePage';
+export { UserListPage } from './UserListPage/UserListPage';
+export { UserEditPage } from './UserEditPage/UserEditPage';
+export { AdminBookListPage } from './AdminBookListPage/AdminBookListPage';
+export { AdminBookEditPage } from './AdminBookEditPage/AdminBookEditPage';
 export { NotFoundPage } from './NotFoundPage/NotFoundPage';

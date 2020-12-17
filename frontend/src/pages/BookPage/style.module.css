@@ -1,0 +1,27 @@
+/* unvisited link */
+.mylink:link {
+    color: red;
+}
+
+/* visited link */
+.mylink:visited {
+    color: green;
+}
+
+/* mouse over link */
+.mylink:hover {
+    color: hotpink;
+}
+
+/* selected link */
+.mylink:active {
+    color: blue;
+}
+
+.space {
+    height: 100px;
+}
+
+.reviewName:hover {
+    text-decoration: underline;
+}

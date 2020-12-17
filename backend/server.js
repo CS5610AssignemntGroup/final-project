@@ -1,12 +1,13 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const graphqlHTTP = require('express-graphql').graphqlHTTP;
-const { buildSchema } = require('graphql');
-const mongoose = require('mongoose');
-const Product = require('./models/product');
-const cors = require('cors');
-const keys = require('./config/keys');
+import express from 'express';
+import dotenv from 'dotenv';
+import path from 'path';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import bookRoutes from './routes/bookRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+
+dotenv.config();
 
 const app = express();
 
@@ -21,96 +22,18 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.json());
 
-app.use(
-    '/graphql',
-    graphqlHTTP({
-        schema: buildSchema(`
-            type Product {
-                _id: ID!
-                name: String!
-                image: String!
-                brand: String!
-                category: String!
-                description: String
-                rating: Float
-                reviewCount: Int
-                price: Float!
-                stockCount: Int!
-            }
+app.use('/api/books', bookRoutes);
+app.use('/api/users', userRoutes);
 
-            input ProductInput {
-                name: String!
-                image: String!
-                brand: String!
-                category: String!
-                description: String
-                rating: Float
-                reviewCount: Int
-                price: Float!
-                stockCount: Int!
-            }
-
-            type RootQuery{
-                getAllProducts: [Product!]!
-            }
-
-            type RootMutation {
-                addProduct(productInput: ProductInput): Product
-            }
-
-            schema {
-                query: RootQuery
-                mutation: RootMutation
-            }
-        `),
-        rootValue: {
-            getAllProducts: () => {
-                return Product.find()
-                    .then(products => {
-                        return products.map(product => {
-                            return { ...product._doc, _id: product.id };
-                        });
-                    })
-                    .catch(err => {
-                        throw err;
-                    });
-            },
-            addProduct: args => {
-                const product = new Product({
-                    // user: args.productInput.user,
-                    name: args.productInput.name,
-                    image: args.productInput.image,
-                    brand: args.productInput.brand,
-                    category: args.productInput.category,
-                    description: args.productInput.description,
-                    rating: args.productInput.rating,
-                    reviewCount: args.productInput.reviewCount,
-                    price: +args.productInput.price,
-                    stockCount: args.productInput.stockCount,
-                    // reviews: args.productInput.reviews
-                });
-
-                return product
-                    .save()
-                    .then(result => {
-                        console.log(result);
-
-                        // return result;
-                        return { ...result._doc, _id: product.id };
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        throw err;
-                    });
-            },
-        },
-        graphiql: true,
+mongoose
+    .connect(process.env.MONGO_URI, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
     })
-);
-
-mongoose.connect(keys.MONGO_URI).catch(err => {
-    console.log(err);
-});
+    .catch(err => {
+        console.log(err);
+    });
 
 const dirname = path.resolve();
 
@@ -126,6 +49,5 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(process.env.PORT || 4000, () =>
-    console.log(`server start at port: ${process.env.PORT}`)
-);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`server start at port: ${PORT}`));
