@@ -13,7 +13,7 @@
     "dev": "nodemon NODE_ENV=development backend/server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "man",
+  "author": "pengjie zhou, man zhang, xiaowei dong",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.19.0",
