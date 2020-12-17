@@ -9,6 +9,7 @@ import {
     Card,
     Button,
     Form,
+    NavDropdown,
 } from 'react-bootstrap';
 import { RootState, Book } from '../../types';
 import {
@@ -18,6 +19,7 @@ import {
 } from '../../actions/bookActions';
 import { Rating } from '../../components';
 import style from './style.module.css';
+import { LinkContainer } from 'react-router-bootstrap';
 
 interface OwnProps {
     id: string;
@@ -84,25 +86,10 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
         return <div>Book Not found</div>;
     }
 
-    // const getOtherInfo = (book: Book) => {
-    //     // @ts-ignore
-    //     axios({
-    //         method: 'get',
-    //         url: `https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}`,
-    //     })
-    //         .then(res => {
-    //             console.log(res.data.items[0].volumeInfo);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         });
-    // };
-
     // @ts-ignore
     // @ts-ignore
     return (
         <div>
-            {/*{getOtherInfo(book)}*/}
             <Link className="btn btn-light my-3" to="/">
                 Go Back
             </Link>
@@ -201,7 +188,13 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                             <ListGroup variant="flush">
                                 {book.reviews.map(review => (
                                     <ListGroup.Item key={review._id}>
-                                        <strong>{review.name}</strong>
+                                        <LinkContainer
+                                            to={`/publicprofile/${review.user}`}>
+                                            <strong
+                                                className={style.reviewName}>
+                                                {review.name}
+                                            </strong>
+                                        </LinkContainer>
                                         <Rating value={review.rating} />
                                         <p>
                                             {review.createdAt.substring(0, 10)}

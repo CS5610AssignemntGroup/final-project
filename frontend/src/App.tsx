@@ -15,6 +15,7 @@ import {
     LoginPage,
     RegisterPage,
     ProfilePage,
+    PublicProfilePage,
     AdminBookListPage,
     AdminBookEditPage,
 } from './pages';
@@ -41,6 +42,12 @@ function App() {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/profile" component={ProfilePage} />
+                    <Route
+                        path="/publicprofile/:id"
+                        render={({ match }: MatchProps) => (
+                            <PublicProfilePage id={match.params.id} />
+                        )}
+                    />
                     <Route path="/admin/userlist" component={UserListPage} />
                     <Route
                         path="/admin/user/:id/edit"

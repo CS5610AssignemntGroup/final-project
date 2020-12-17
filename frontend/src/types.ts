@@ -84,6 +84,11 @@ export interface RootState {
         error: string;
         user: User;
     };
+    userPublicProfile: {
+        loading: boolean;
+        error: string;
+        user: User;
+    };
     userUpdateProfile: {
         loading: boolean;
         error: string;

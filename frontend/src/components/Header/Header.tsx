@@ -24,7 +24,7 @@ const Header: FunctionComponent<Props> = props => {
 
     return (
         <header>
-            <Navbar bg="dark" variant="dark" style={{ height: '7vh' }}>
+            <Navbar bg="primary" variant="dark" style={{ height: '7vh' }}>
                 <Container>
                     <LinkContainer to="/">
                         <Navbar.Brand href="/">AceBook</Navbar.Brand>

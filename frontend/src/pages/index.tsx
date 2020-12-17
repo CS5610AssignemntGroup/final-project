@@ -3,6 +3,7 @@ export { BookPage } from './BookPage/BookPage';
 export { LoginPage } from './LoginPage/LoginPage';
 export { RegisterPage } from './RegisterPage/RegisterPage';
 export { ProfilePage } from './ProfilePage/ProfilePage';
+export { PublicProfilePage } from './PublicProfilePage/PublicProfilePage';
 export { UserListPage } from './UserListPage/UserListPage';
 export { UserEditPage } from './UserEditPage/UserEditPage';
 export { AdminBookListPage } from './AdminBookListPage/AdminBookListPage';

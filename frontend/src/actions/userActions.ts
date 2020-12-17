@@ -130,6 +130,32 @@ export const getUserDetails = (id: string) => async (
     }
 };
 
+export const getUserPublicProfile = (id: string) => async (
+    dispatch: (arg0: { type?: string; payload?: any }) => void
+) => {
+    try {
+        dispatch({
+            type: 'USER_PUBLIC_PROFILE_REQUEST',
+        });
+
+        const { data } = await axios.get(`/api/users/publicprofile/${id}`);
+
+        dispatch({
+            type: 'USER_PUBLIC_PROFILE_SUCCESS',
+            payload: data,
+        });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        dispatch({
+            type: 'USER_PUBLIC_PROFILE_FAIL',
+            payload: message,
+        });
+    }
+};
+
 export const updateUserProfile = (user: any) => async (
     dispatch: (arg0: { payload?: any; type: string }) => void,
     getState: () => { userLogin: { userInfo: any } }

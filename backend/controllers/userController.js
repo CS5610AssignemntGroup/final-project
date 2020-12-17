@@ -83,6 +83,28 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 /*
+@desc    Get user public profile
+@route   GET /api/users/publicprofile/:id
+@access  Public
+ */
+const getUserPublicProfile = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
+    } else {
+        //TODO handle error
+        res.status(404);
+        throw new Error('User not found');
+    }
+});
+
+/*
 @desc    Update user profile
 @route   PUT /api/users/profile
 @access  Private
@@ -186,6 +208,7 @@ export {
     authUser,
     registerUser,
     getUserProfile,
+    getUserPublicProfile,
     updateUserProfile,
     getUsers,
     deleteUser,

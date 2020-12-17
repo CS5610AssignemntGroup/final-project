@@ -1,14 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    Row,
-    Col,
-    Image,
-    ListGroup,
-    Card,
-    Button,
-    Form,
-} from 'react-bootstrap';
+import { Row, Col, Button, Form } from 'react-bootstrap';
 import { RootState } from '../../types';
 import * as H from 'history';
 import { getUserDetails, updateUserProfile } from '../../actions/userActions';
@@ -21,7 +13,6 @@ interface OwnProps {
 type Props = OwnProps;
 
 const ProfilePage: FunctionComponent<Props> = ({ location, history }) => {
-    //TODO style, link to profile from comment
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

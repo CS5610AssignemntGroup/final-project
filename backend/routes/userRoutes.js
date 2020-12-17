@@ -5,6 +5,7 @@ import {
     registerUser,
     getUserProfile,
     updateUserProfile,
+    getUserPublicProfile,
     getUsers,
     deleteUser,
     getUserById,
@@ -18,6 +19,7 @@ router
     .route('/profile')
     .get(protect, getUserProfile)
     .put(protect, updateUserProfile);
+router.route('/publicprofile/:id').get(getUserPublicProfile);
 router
     .route('/:id')
     .delete(protect, admin, deleteUser)
