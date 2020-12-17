@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { logout } from './userActions';
+import { Book } from '../types';
 
 export const listBooks = (keyword = '') => async (
     dispatch: (arg0: { type: string; payload?: any }) => void
@@ -39,6 +40,32 @@ export const listBookDetails = (id: string) => async (
     } catch (error) {
         dispatch({
             type: 'BOOK_DETAILS_FAIL',
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const getOtherInfoFromGoogleBook = (book: Book) => async (
+    dispatch: (arg0: { type: any; payload?: any }) => void
+) => {
+    try {
+        dispatch({ type: 'BOOK_OTHER_INFO_REQUEST' });
+
+        const { data } = await axios.get(
+            `https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}&key=AIzaSyAyWLTBGEAost060UJjPDpexfh55Z-WOsI`
+        );
+        console.log('data of google book in action', data);
+
+        dispatch({
+            type: 'BOOK_OTHER_INFO_SUCCESS',
+            payload: data.items[0].volumeInfo,
+        });
+    } catch (error) {
+        dispatch({
+            type: 'BOOK_OTHER_INFO_FAIL',
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

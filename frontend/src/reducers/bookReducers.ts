@@ -33,6 +33,22 @@ export const bookDetailsReducer = (
     }
 };
 
+export const bookOtherInfoReducer = (
+    state = { info: {} },
+    action: { type: any; payload: any }
+) => {
+    switch (action.type) {
+        case 'BOOK_OTHER_INFO_REQUEST':
+            return { ...state, loading: true };
+        case 'BOOK_OTHER_INFO_SUCCESS':
+            return { loading: false, info: action.payload };
+        case 'BOOK_OTHER_INFO_FAIL':
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const bookDeleteReducer = (
     state = {},
     action: { type: any; payload: any }

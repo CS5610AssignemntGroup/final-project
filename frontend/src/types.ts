@@ -56,6 +56,19 @@ export interface RootState {
         error: string;
         success: string;
     };
+    bookOtherInfo: {
+        loading: boolean;
+        error: string;
+        success: string;
+        info: {
+            authors: string[];
+            averageRating: number;
+            infoLink: string;
+            pageCount: number;
+            previewLink: string;
+            publishedDate: string;
+        };
+    };
     userLogin: {
         loading: boolean;
         error: string;

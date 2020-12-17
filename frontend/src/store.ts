@@ -8,6 +8,7 @@ import {
     bookCreateReducer,
     bookUpdateReducer,
     bookReviewCreateReducer,
+    bookOtherInfoReducer,
 } from './reducers/bookReducers';
 import {
     userLoginReducer,
@@ -26,6 +27,7 @@ const reducer = combineReducers({
     bookCreate: bookCreateReducer,
     bookUpdate: bookUpdateReducer,
     bookReviewCreate: bookReviewCreateReducer,
+    bookOtherInfo: bookOtherInfoReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,

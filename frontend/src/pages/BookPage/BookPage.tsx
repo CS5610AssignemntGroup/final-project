@@ -11,8 +11,13 @@ import {
     Form,
 } from 'react-bootstrap';
 import { RootState, Book } from '../../types';
-import { createBookReview, listBookDetails } from '../../actions/bookActions';
+import {
+    createBookReview,
+    listBookDetails,
+    getOtherInfoFromGoogleBook,
+} from '../../actions/bookActions';
 import { Rating } from '../../components';
+import axios from 'axios';
 
 interface OwnProps {
     id: string;
@@ -41,6 +46,16 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
         error: errorBookReview,
     } = bookReviewCreate;
 
+    const bookOtherInfo = useSelector(
+        (state: RootState) => state.bookOtherInfo
+    );
+    const {
+        loading: loadingBookOtherInfo,
+        error: errorBookOtherInfo,
+        info,
+    } = bookOtherInfo;
+
+    //TODO update 3rd party api
     useEffect(() => {
         if (successBookReview) {
             setRating('0');
@@ -50,7 +65,12 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
             dispatch(listBookDetails(id));
             dispatch({ type: 'BOOK_CREATE_REVIEW_RESET' });
         }
-    }, [dispatch, successBookReview]);
+
+        if (book._id) {
+            console.log('book before dispatch other info', book);
+            dispatch(getOtherInfoFromGoogleBook(book));
+        }
+    }, [dispatch, loading, successBookReview]);
 
     const submitHandler = (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -61,13 +81,29 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
             })
         );
     };
-    if (!book) {
+    if (!book._id) {
         return <div>Book Not found</div>;
     }
 
+    // const getOtherInfo = (book: Book) => {
+    //     // @ts-ignore
+    //     axios({
+    //         method: 'get',
+    //         url: `https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}`,
+    //     })
+    //         .then(res => {
+    //             console.log(res.data.items[0].volumeInfo);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         });
+    // };
+
+    // @ts-ignore
     // @ts-ignore
     return (
         <div>
+            {/*{getOtherInfo(book)}*/}
             <Link className="btn btn-light my-3" to="/">
                 Go Back
             </Link>
@@ -101,7 +137,17 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                             <Card>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item>
-                                        <Button>Add To Favorite List</Button>
+                                        <p>other info from google books</p>
+                                        {!info ? (
+                                            ''
+                                        ) : (
+                                            <p>
+                                                Average Rating:{' '}
+                                                {info.averageRating
+                                                    ? info.averageRating
+                                                    : 'no rating'}
+                                            </p>
+                                        )}
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Card>
