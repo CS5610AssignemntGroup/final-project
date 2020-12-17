@@ -15,9 +15,9 @@ To sign up as a new customer, please click the 'Sign in' button on top right. On
 
 This is a bookstore website. The basic idea of building this website is to help people more focusing on the book quality via looking through book information and reviews. We dedicatedly designed this website with three different users, guest, login user, and admin user. Each of them have different authorities.  
 
-> As a guest:
-	--- browser all existing books
-	>> search for a specific book
+As a guest:
+--- browser all existing books
+	--- search for a specific book
 	* read detailed book information
 	* read book reviews from others
 As a registered user:
