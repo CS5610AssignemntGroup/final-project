@@ -9,7 +9,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 const Rating: FunctionComponent<Props> = ({ value, number }) => {
-    const starNum: number = Math.floor(value);
+    const starNum: number = Math.floor(value) || 0;
     const starFrac: number = value - starNum;
 
     return (

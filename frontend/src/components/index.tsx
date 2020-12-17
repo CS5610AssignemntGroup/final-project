@@ -1,4 +1,3 @@
-export { CartMenu } from './CartMenu/CartMenu';
 export { BookCard } from './BookCard/BookCard';
 export { Header } from './Header/Header';
 export { Footer } from './Footer/Footer';

@@ -15,6 +15,8 @@ import {
     LoginPage,
     RegisterPage,
     ProfilePage,
+    AdminBookListPage,
+    AdminBookEditPage,
 } from './pages';
 
 import './App.css';
@@ -50,6 +52,19 @@ function App() {
                             <UserEditPage id={match.params.id} />
                         )}
                     />
+                    <Route
+                        path="/admin/booklist"
+                        component={AdminBookListPage}
+                        exact
+                    />
+
+                    <Route
+                        path="/admin/book/:id/edit"
+                        render={({ match }: MatchProps) => (
+                            <AdminBookEditPage id={match.params.id} />
+                        )}
+                    />
+
                     <Route path="/notfound/" component={NotFoundPage} />
                     <Route
                         path="/book/:id"

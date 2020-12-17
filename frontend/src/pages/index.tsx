@@ -5,4 +5,6 @@ export { RegisterPage } from './RegisterPage/RegisterPage';
 export { ProfilePage } from './ProfilePage/ProfilePage';
 export { UserListPage } from './UserListPage/UserListPage';
 export { UserEditPage } from './UserEditPage/UserEditPage';
+export { AdminBookListPage } from './AdminBookListPage/AdminBookListPage';
+export { AdminBookEditPage } from './AdminBookEditPage/AdminBookEditPage';
 export { NotFoundPage } from './NotFoundPage/NotFoundPage';

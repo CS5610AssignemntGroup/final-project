@@ -8,7 +8,6 @@ import {
     getUserDetails,
     updateUser,
 } from '../../actions/userActions';
-import * as H from 'history';
 import { createBrowserHistory } from 'history';
 import { RootState } from '../../types';
 import { Link } from 'react-router-dom';

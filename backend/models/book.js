@@ -25,9 +25,11 @@ const bookSchema = new Schema({
     },
     rating: {
         type: Number,
+        default: 0,
     },
     numReviews: {
         type: Number,
+        default: 0,
     },
     reviews: [reviewSchema],
 });

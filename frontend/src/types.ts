@@ -1,9 +1,3 @@
-import {
-    userDeleteReducer,
-    userListReducer,
-    userUpdateReducer,
-} from './reducers/userReducers';
-
 export interface Review {
     name: string;
     rating: number;
@@ -42,6 +36,9 @@ export interface RootState {
         loading: string;
         error: string;
     };
+    bookDelete: { loading: string; error: string; success: string };
+    bookCreate: { loading: string; error: string; success: string; book: Book };
+    bookUpdate: { loading: string; error: string; success: string; book: Book };
     userLogin: {
         loading: string;
         error: string;
