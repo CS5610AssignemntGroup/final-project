@@ -34,6 +34,7 @@ This is a bookstore website. The basic idea of building this website is to help 
 >> - inherit registered user
 >> - manage all registered users, including update user's profile, delete user, and assign users admin authority
 >> - mange all books, including adding book, update book's information, and delete book
+>> - we have only one admin, email: admin@example.com, password: 123456
 
 <img src="https://github.com/CS5610AssignemntGroup/final-project/blob/master/admin_user.gif" width=1000><br>
 
