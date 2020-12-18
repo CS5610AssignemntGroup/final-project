@@ -1,7 +1,7 @@
 import graphql, { GraphQLFloat } from 'graphql';
 import Book from '../models/book.js';
-import { Review } from '../models/review.js';
-import User from '../models/user.js';
+import pkg from 'graphql-iso-date';
+const { GraphQLDateTime } = pkg;
 
 const {
     GraphQLObjectType,
@@ -36,7 +36,7 @@ const ReviewType = new GraphQLObjectType({
         name: { type: GraphQLString },
         rating: { type: GraphQLFloat },
         comment: { type: GraphQLString },
-        createdAt: { type: GraphQLString },
+        createdAt: { type: GraphQLDateTime },
         user: {
             type: UserType,
         },
@@ -92,14 +92,10 @@ const Mutation = new GraphQLObjectType({
             type: BookType,
             args: {
                 name: { type: new GraphQLNonNull(GraphQLString) },
-                genre: { type: new GraphQLNonNull(GraphQLString) },
-                reviewId: { type: new GraphQLNonNull(GraphQLID) },
             },
             resolve(parent, args) {
                 let book = new Book({
                     name: args.name,
-                    genre: args.genre,
-                    reviewId: args.reviewId,
                 });
                 return book.save();
             },
