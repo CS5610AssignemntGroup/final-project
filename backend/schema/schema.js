@@ -1,6 +1,7 @@
 import graphql, { GraphQLFloat } from 'graphql';
 import Book from '../models/book.js';
 import { Review } from '../models/review.js';
+import User from '../models/user.js';
 
 const {
     GraphQLObjectType,
@@ -15,7 +16,7 @@ const {
 const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: () => ({
-        id: { type: GraphQLID },
+        _id: { type: GraphQLID },
         title: { type: GraphQLString },
         isbn: { type: GraphQLString },
         image: { type: GraphQLString },
@@ -31,20 +32,27 @@ const BookType = new GraphQLObjectType({
 const ReviewType = new GraphQLObjectType({
     name: 'Review',
     fields: () => ({
-        id: { type: GraphQLID },
+        _id: { type: GraphQLID },
         name: { type: GraphQLString },
         rating: { type: GraphQLFloat },
         comment: { type: GraphQLString },
-        user: { type: UserType },
+        createdAt: { type: GraphQLString },
+        user: {
+            type: UserType,
+        },
     }),
 });
 
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
-        id: { type: GraphQLID },
-        name: { type: GraphQLString },
-        email: { type: GraphQLString },
+        _id: { type: GraphQLID },
+        name: {
+            type: GraphQLString,
+        },
+        email: {
+            type: GraphQLString,
+        },
     }),
 });
 
@@ -60,8 +68,18 @@ const RootQuery = new GraphQLObjectType({
         },
         books: {
             type: new GraphQLList(BookType),
+            args: { keyword: { type: GraphQLString } },
             resolve(parent, args) {
-                return Book.find({});
+                if (args.keyword) {
+                    return Book.find({
+                        title: {
+                            $regex: args.keyword,
+                            $options: 'i',
+                        },
+                    });
+                } else {
+                    return Book.find({});
+                }
             },
         },
     },
@@ -70,36 +88,22 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        // addReview: {
-        //     type: ReviewType,
-        //     args: {
-        //         name: { type: GraphQLString },
-        //         age: { type: GraphQLInt },
-        //     },
-        //     resolve(parent, args) {
-        //         let review = new Review({
-        //             name: args.name,
-        //             age: args.age,
-        //         });
-        //         return review.save();
-        //     },
-        // },
-        // addBook: {
-        //     type: BookType,
-        //     args: {
-        //         name: { type: new GraphQLNonNull(GraphQLString) },
-        //         genre: { type: new GraphQLNonNull(GraphQLString) },
-        //         reviewId: { type: new GraphQLNonNull(GraphQLID) },
-        //     },
-        //     resolve(parent, args) {
-        //         let book = new Book({
-        //             name: args.name,
-        //             genre: args.genre,
-        //             reviewId: args.reviewId,
-        //         });
-        //         return book.save();
-        //     },
-        // },
+        addBook: {
+            type: BookType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                genre: { type: new GraphQLNonNull(GraphQLString) },
+                reviewId: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args) {
+                let book = new Book({
+                    name: args.name,
+                    genre: args.genre,
+                    reviewId: args.reviewId,
+                });
+                return book.save();
+            },
+        },
     },
 });
 

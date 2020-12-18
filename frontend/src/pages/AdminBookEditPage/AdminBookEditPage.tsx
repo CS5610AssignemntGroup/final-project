@@ -3,10 +3,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col, Container, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../types';
-import { listBookDetails, updateBook } from '../../actions/bookActions';
-import axios from 'axios';
+import { updateBook } from '../../actions/bookActions';
 import { Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { useQuery } from '@apollo/client';
+import { getBookQuery } from '../../queries/queries';
 
 interface OwnProps {
     id: string;
@@ -20,13 +21,15 @@ const AdminBookEditPage: FunctionComponent<Props> = ({ id }) => {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('');
     const [isbn, setIsbn] = useState('');
-
     const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
 
-    const bookDetails = useSelector((state: RootState) => state.bookDetails);
-    const { loading, error, book } = bookDetails;
+    const { loading, error, data } = useQuery(getBookQuery, {
+        variables: { id },
+    });
+
+    let book = data ? data.book : undefined;
 
     const bookUpdate = useSelector((state: RootState) => state.bookUpdate);
     const {
@@ -39,16 +42,6 @@ const AdminBookEditPage: FunctionComponent<Props> = ({ id }) => {
         if (successUpdate) {
             dispatch({ type: 'BOOK_UPDATE_RESET' });
             history.push('/admin/booklist');
-        } else {
-            if (!book.title || book._id !== id) {
-                dispatch(listBookDetails(id));
-            }
-            // else {
-            //     setTitle(book.title);
-            //     setImage(book.image);
-            //     setIsbn(book.isbn);
-            //     setDescription(book.description);
-            // }
         }
     }, [dispatch, history, id, book, successUpdate]);
 
@@ -76,12 +69,15 @@ const AdminBookEditPage: FunctionComponent<Props> = ({ id }) => {
                         <h1>Edit Book</h1>
                         {loadingUpdate && <p>Loading...</p>}
                         {errorUpdate && <p>{errorUpdate}</p>}
-                        {loading ? (
+                        {!book ? (
+                            <div></div>
+                        ) : loading ? (
                             <p>Loading...</p>
                         ) : error ? (
                             <p>{error}</p>
                         ) : (
                             //TODO bug in input
+
                             <Form onSubmit={submitHandler}>
                                 <Form.Group controlId="title">
                                     <Form.Label>Title</Form.Label>

@@ -3,8 +3,10 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as H from 'history';
-import { RootState } from '../../types';
+import { Book, RootState } from '../../types';
 import { listBooks, deleteBook, createBook } from '../../actions/bookActions';
+import { useQuery } from '@apollo/client';
+import { getBooksQuery } from '../../queries/queries';
 
 interface OwnProps {
     history: H.History;
@@ -15,8 +17,8 @@ type Props = OwnProps;
 const AdminBookListPage: FunctionComponent<Props> = ({ history }) => {
     const dispatch = useDispatch();
 
-    const bookList = useSelector((state: RootState) => state.bookList);
-    const { loading, error, books } = bookList;
+    const { loading, error, data } = useQuery(getBooksQuery);
+    const books = data ? data.books : undefined;
 
     const bookDelete = useSelector((state: RootState) => state.bookDelete);
     const {
@@ -55,6 +57,7 @@ const AdminBookListPage: FunctionComponent<Props> = ({ history }) => {
         successDelete,
         successCreate,
         createdBook,
+        data,
     ]);
 
     const deleteHandler = (id: string) => {
@@ -83,7 +86,9 @@ const AdminBookListPage: FunctionComponent<Props> = ({ history }) => {
             {errorDelete && <p>{errorDelete}</p>}
             {loadingCreate && <p>Loading...</p>}
             {errorCreate && <p>{errorCreate}</p>}
-            {loading ? (
+            {!books ? (
+                <div></div>
+            ) : loading ? (
                 <p>Loading...</p>
             ) : error ? (
                 <p>{error}</p>
@@ -104,7 +109,7 @@ const AdminBookListPage: FunctionComponent<Props> = ({ history }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {books.map(book => (
+                            {books.map((book: Book) => (
                                 <tr key={book._id}>
                                     <td>{book._id}</td>
                                     <td>{book.title}</td>

@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BookCard } from '../../components';
-import { RootState, Book } from '../../types';
-import { listBooks } from '../../actions/bookActions';
+import { Book } from '../../types';
 import style from './style.module.css';
+import { useQuery } from '@apollo/client';
+import { getBooksQuery } from '../../queries/queries';
 
 interface OwnProps {
     keyword: string;
@@ -13,15 +13,11 @@ interface OwnProps {
 type Props = OwnProps;
 
 const HomePage: FunctionComponent<Props> = ({ keyword }) => {
-    const dispatch = useDispatch();
-
-    const bookList = useSelector((state: RootState) => state.bookList);
-
-    const { loading, error, books } = bookList;
-
-    useEffect(() => {
-        dispatch(listBooks(keyword));
-    }, [dispatch, keyword]);
+    const { loading, error, data } = useQuery(getBooksQuery, {
+        variables: { keyword },
+    });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
 
     return (
         <div>
@@ -39,7 +35,7 @@ const HomePage: FunctionComponent<Props> = ({ keyword }) => {
                 <p>{error}</p>
             ) : (
                 <div className={style.bookContainer}>
-                    {books.map((book: Book) => (
+                    {data.books.map((book: Book) => (
                         <BookCard
                             key={book._id}
                             id={book._id}
