@@ -2,12 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    listUsers,
-    deleteUser,
-    getUserDetails,
-    updateUser,
-} from '../../actions/userActions';
+import { getUserDetails, updateUser } from '../../actions/userActions';
 import { createBrowserHistory } from 'history';
 import { RootState } from '../../types';
 import { Link } from 'react-router-dom';
@@ -43,9 +38,13 @@ const UserEditPage: FunctionComponent<Props> = ({ id }) => {
         } else {
             if (id && Object.keys(user).length === 0) {
                 dispatch(getUserDetails(id));
+            } else {
+                setName(user.name);
+                setEmail(user.email);
+                setIsAdmin(user.isAdmin);
             }
         }
-    }, [dispatch, history, id, user, successUpdate]);
+    }, [successUpdate]);
 
     const submitHandler = (e: { preventDefault: () => void }) => {
         e.preventDefault();
