@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button, Row, Col, Container, Form } from 'react-bootstrap';
+
+import { Button, Row, Col, Container, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../types';
 import { updateBook } from '../../actions/bookActions';
@@ -81,7 +81,6 @@ const AdminBookEditPage: FunctionComponent<Props> = ({ id }) => {
                             <Form onSubmit={submitHandler}>
                                 <Form.Group controlId="title">
                                     <Form.Label>Title</Form.Label>
-                                    {console.log('title', title)}
                                     <Form.Control
                                         type="title"
                                         placeholder="Enter book title"

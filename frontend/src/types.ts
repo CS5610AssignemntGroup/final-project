@@ -28,16 +28,6 @@ export interface User {
 }
 
 export interface RootState {
-    bookList: {
-        books: Book[];
-        loading: boolean;
-        error: string;
-    };
-    bookDetails: {
-        book: Book;
-        loading: boolean;
-        error: string;
-    };
     bookDelete: { loading: boolean; error: string; success: string };
     bookCreate: {
         loading: boolean;

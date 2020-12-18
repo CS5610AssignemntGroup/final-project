@@ -4,7 +4,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as H from 'history';
 import { Book, RootState } from '../../types';
-import { listBooks, deleteBook, createBook } from '../../actions/bookActions';
+import { deleteBook, createBook } from '../../actions/bookActions';
 import { useQuery } from '@apollo/client';
 import { getBooksQuery } from '../../queries/queries';
 
@@ -18,7 +18,7 @@ const AdminBookListPage: FunctionComponent<Props> = ({ history }) => {
     const dispatch = useDispatch();
 
     const { loading, error, data } = useQuery(getBooksQuery);
-    const books = data ? data.books : undefined;
+    let books = data ? data.books : undefined;
 
     const bookDelete = useSelector((state: RootState) => state.bookDelete);
     const {
@@ -47,8 +47,6 @@ const AdminBookListPage: FunctionComponent<Props> = ({ history }) => {
 
         if (successCreate) {
             history.push(`/admin/book/${createdBook._id}/edit`);
-        } else {
-            dispatch(listBooks(''));
         }
     }, [
         dispatch,

@@ -22,7 +22,7 @@ const PublicProfilePage: FunctionComponent<Props> = ({ id }) => {
         (state: RootState) => state.userPublicProfile
     );
     const { loading, error, user } = userPublicProfile;
-    console.log('user', user);
+
     useEffect(() => {
         dispatch(getUserPublicProfile(id));
     }, [id]);

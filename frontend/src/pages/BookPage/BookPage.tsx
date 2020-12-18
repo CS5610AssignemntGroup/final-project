@@ -13,7 +13,6 @@ import {
 import { RootState, Review } from '../../types';
 import {
     createBookReview,
-    listBookDetails,
     getOtherInfoFromGoogleBook,
 } from '../../actions/bookActions';
 import { Rating } from '../../components';
@@ -74,7 +73,6 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
         if (book && book._id) {
             dispatch(getOtherInfoFromGoogleBook(book));
         }
-        console.log('book', book);
     }, [dispatch, loading, successBookReview, data]);
 
     const submitHandler = (e: { preventDefault: () => void }) => {

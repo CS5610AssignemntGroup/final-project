@@ -1,42 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Book from '../models/book.js';
 
-/*
-@desc    Fetch all books
-@route   GET /api/books
-@access  Public
- */
-const getBooks = asyncHandler(async (req, res) => {
-    const keyword = req.query.keyword
-        ? {
-              title: {
-                  $regex: req.query.keyword,
-                  $options: 'i',
-              },
-          }
-        : {};
-
-    const books = await Book.find({ ...keyword });
-
-    res.json({ books });
-});
-
-/*
-@desc    Fetch a single book
-@route   GET /api/books/:id
-@access  Public
- */
-const getBookById = asyncHandler(async (req, res) => {
-    const book = await Book.findById(req.params.id);
-
-    if (book) {
-        res.json(book);
-    } else {
-        res.status(404);
-        throw new Error('Book not found');
-    }
-});
-
 // @desc    Delete a book
 // @route   DELETE /api/books/:id
 // @access  Private/Admin
@@ -134,11 +98,4 @@ const createBookReview = asyncHandler(async (req, res) => {
     }
 });
 
-export {
-    getBooks,
-    getBookById,
-    deleteBook,
-    createBook,
-    updateBook,
-    createBookReview,
-};
+export { deleteBook, createBook, updateBook, createBookReview };
