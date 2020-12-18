@@ -9,7 +9,7 @@ export const getOtherInfoFromGoogleBook = (book: Book) => async (
         dispatch({ type: 'BOOK_OTHER_INFO_REQUEST' });
 
         const { data } = await axios.get(
-            `https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}&key=AIzaSyAyWLTBGEAost060UJjPDpexfh55Z-WOsI`
+            `https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
         );
 
         dispatch({
