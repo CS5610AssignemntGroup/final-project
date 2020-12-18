@@ -1,9 +1,7 @@
 # final-project
 
 #### Video presentation
-
-#### Link to Github repo 
-https://github.com/CS5610AssignemntGroup/final-project
+uploading...
 
 #### Link to Heroku app
 https://acebook5610.herokuapp.com/
@@ -43,3 +41,7 @@ This is a bookstore website. The basic idea of building this website is to help 
 Pengjie 'Crisp' Zhou <br>
 Man Zhang <br>
 Xiaowei Dong
+
+#### Reference
+We take an online course and learn some code from it:
+https://www.udemy.com/course/mern-ecommerce/
