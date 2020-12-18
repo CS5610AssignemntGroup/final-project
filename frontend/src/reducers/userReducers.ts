@@ -57,7 +57,7 @@ export const userDetailsReducer = (
 
 // @ts-ignore
 export const userPublicProfileReducer = (
-    state = { user: {} },
+    state = { user: undefined },
     action: { type: any; payload: any }
 ) => {
     switch (action.type) {

@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import bookRoutes from './routes/bookRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import { graphqlSchema } from './schema/schema.js';
+import { graphqlHTTP } from 'express-graphql';
 
 dotenv.config();
 
@@ -34,6 +36,14 @@ mongoose
     .catch(err => {
         console.log(err);
     });
+
+app.use(
+    '/graphql',
+    graphqlHTTP({
+        schema: graphqlSchema,
+        graphiql: true,
+    })
+);
 
 const dirname = path.resolve();
 

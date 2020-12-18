@@ -18,16 +18,14 @@ const PublicProfilePage: FunctionComponent<Props> = ({ id }) => {
 
     const dispatch = useDispatch();
 
-    const userDetails = useSelector(
+    const userPublicProfile = useSelector(
         (state: RootState) => state.userPublicProfile
     );
-    const { loading, error, user } = userDetails;
+    const { loading, error, user } = userPublicProfile;
 
     useEffect(() => {
-        if (!user || !user.name) {
-            dispatch(getUserPublicProfile(id));
-        }
-    }, [dispatch, history, user]);
+        dispatch(getUserPublicProfile(id));
+    }, [id]);
 
     return (
         <div>
@@ -36,7 +34,6 @@ const PublicProfilePage: FunctionComponent<Props> = ({ id }) => {
                 <Col md={6}>
                     <h2>User Profile</h2>
                     {message && <p>{message}</p>}
-                    {}
                     {loading ? (
                         <p>Loading...</p>
                     ) : error ? (

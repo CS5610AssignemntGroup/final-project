@@ -9,17 +9,17 @@ import {
     Card,
     Button,
     Form,
-    NavDropdown,
 } from 'react-bootstrap';
-import { RootState, Book } from '../../types';
+import { RootState, Review } from '../../types';
 import {
     createBookReview,
-    listBookDetails,
     getOtherInfoFromGoogleBook,
 } from '../../actions/bookActions';
 import { Rating } from '../../components';
 import style from './style.module.css';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useQuery } from '@apollo/client';
+import { getBookQuery } from '../../queries/queries';
 
 interface OwnProps {
     id: string;
@@ -33,8 +33,11 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
 
     const dispatch = useDispatch();
 
-    const bookDetails = useSelector((state: RootState) => state.bookDetails);
-    const { loading, error, book } = bookDetails;
+    const { loading, error, data } = useQuery(getBookQuery, {
+        variables: { id },
+    });
+
+    let book = data ? data.book : undefined;
 
     const userLogin = useSelector((state: RootState) => state.userLogin);
     const { userInfo } = userLogin;
@@ -62,16 +65,15 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
             setRating('0');
             setComment('');
         }
-        if (!book._id || book._id !== id) {
-            dispatch(listBookDetails(id));
+
+        if (book && (!book._id || book._id !== id)) {
             dispatch({ type: 'BOOK_CREATE_REVIEW_RESET' });
         }
 
-        if (book._id) {
-            console.log('book before dispatch other info', book);
+        if (book && book._id) {
             dispatch(getOtherInfoFromGoogleBook(book));
         }
-    }, [dispatch, loading, successBookReview]);
+    }, [dispatch, loading, successBookReview, data]);
 
     const submitHandler = (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -82,9 +84,6 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
             })
         );
     };
-    if (!book._id) {
-        return <div>Book Not found</div>;
-    }
 
     // @ts-ignore
     // @ts-ignore
@@ -186,10 +185,10 @@ const BookPage: FunctionComponent<Props> = ({ id }) => {
                             <h2>Reviews</h2>
                             {book.reviews.length === 0 && <p>No Reviews</p>}
                             <ListGroup variant="flush">
-                                {book.reviews.map(review => (
+                                {book.reviews.map((review: Review) => (
                                     <ListGroup.Item key={review._id}>
                                         <LinkContainer
-                                            to={`/publicprofile/${review.user}`}>
+                                            to={`/publicprofile/${review.user._id}`}>
                                             <strong
                                                 className={style.reviewName}>
                                                 {review.name}

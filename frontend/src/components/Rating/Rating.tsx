@@ -32,7 +32,9 @@ const Rating: FunctionComponent<Props> = ({ value, number }) => {
                     }
                 />
             </div>
-            <div>{number ? `${value} from ${number} reviews` : ''}</div>
+            <div>
+                {number ? `${value.toFixed(1)} from ${number} reviews` : ''}
+            </div>
         </div>
     );
 };
